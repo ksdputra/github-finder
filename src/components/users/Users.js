@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import UserItem from './UserItem'
 import Spinner from '../layout/Spinner'
 import PropTypes from 'prop-types'
@@ -23,7 +23,7 @@ const userStyle = {
   gridGap: '1rem'
 }
 
-User.propTypes = {
+Users.propTypes = {
   loading: PropTypes.bool.isRequired,
   users: PropTypes.array.isRequired
 }
