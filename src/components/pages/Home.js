@@ -2,22 +2,22 @@ import React, { Fragment, useContext } from 'react';
 import Search from '../users/Search';
 import Pagination from '@material-ui/lab/Pagination'
 import Users from '../users/Users';
-import GithubContext from '../../context/github/githubContext';
+import SearchContext from '../../context/search/searchContext';
 
 const Home = () => {
-  const githubContext = useContext(GithubContext);
+  const searchContext = useContext(SearchContext);
 
   const handleChange = (e) => {
     const selectedPage = e.selected + 1
 
-    githubContext.searchUsers(githubContext.searchText, selectedPage);
+    searchContext.searchUsers(searchContext.searchText, selectedPage);
   }
 
   return (
     <Fragment>
       <Search />
       <Pagination
-        count={githubContext.pageCount}
+        count={searchContext.pageCount}
         variant="outlined"
         shape="rounded"
         onChange={handleChange}

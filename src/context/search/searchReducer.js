@@ -2,22 +2,24 @@ import {
   SEARCH_USERS,
   SET_LOADING,
   CLEAR_USERS,
-  GET_USER,
-  GET_REPOS
 } from '../types';
 
 export default (state, action) => {
   switch(action.type) {
-    case GET_USER:
+    case SEARCH_USERS:
       return {
         ...state,
-        user: action.payload,
+        users: action.payload.items,
+        pageCount: Math.ceil(action.payload.total_count / 30),
+        searchText: action.searchText,
         loading: false
       }
-    case GET_REPOS:
+    case CLEAR_USERS:
       return {
         ...state,
-        repos: action.payload,
+        users: [],
+        pageCount: null,
+        searchText: '',
         loading: false
       }
     case SET_LOADING:
