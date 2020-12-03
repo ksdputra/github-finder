@@ -14,13 +14,16 @@ const AlertState = (props) => {
       payload: { msg, type }
     })
 
-    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3500)
+    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 5000)
   }
+
+  const removeAlert = () => dispatch({ type: REMOVE_ALERT })
 
   return <AlertContext.Provider
     value={{
       alert: state,
-      popAlert
+      popAlert,
+      removeAlert
     }}>
     {props.children}
   </AlertContext.Provider>

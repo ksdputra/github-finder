@@ -9,7 +9,7 @@ export const Alert = () => {
 
   return (
     alert !== null && (
-      <AlertUI severity={alert.type}>{alert.msg}</AlertUI>
+      <AlertUI severity={alert.type} onClose={alertContext.removeAlert}>{alert.msg}</AlertUI>
     )
   );
 };
