@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
+import Pagination from '@material-ui/lab/Pagination'
 import SearchContext from '../../context/search/searchContext';
 import AlertContext from '../../context/alert/alertContext';
 
@@ -18,6 +19,12 @@ const Search = (props) => {
     }
   };
 
+  const handleChange = (e) => {
+    const selectedPage = e.selected + 1
+
+    searchContext.searchUsers(searchContext.searchText, selectedPage);
+  };
+
   const onChange = e => setText(e.target.value);
 
   return (
@@ -26,7 +33,17 @@ const Search = (props) => {
         <input type='text' name='text' placeholder='Search Users...' value={text} onChange={onChange} />
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
-      {searchContext.users.length > 0 && (<button className='btn btn-light btn-block' onClick={searchContext.clearUsers}>Clear</button>)}
+      {searchContext.users.length > 0 && (
+        <Fragment>
+          <button className='btn btn-light btn-block' onClick={searchContext.clearUsers}>Clear</button>
+          <Pagination
+            count={searchContext.pageCount}
+            variant="outlined"
+            shape="rounded"
+            onChange={handleChange}
+          />
+        </Fragment>
+        )}
     </div>
   )
 };
