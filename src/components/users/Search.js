@@ -12,7 +12,7 @@ const Search = (props) => {
   const onSubmit = e => {
     e.preventDefault();
     if (text === '') {
-      alertContext.popAlert('Please enter something', 'light')
+      alertContext.popAlert('Please enter something', 'error')
     } else {
       searchContext.searchUsers(text, 1);
       setText('');

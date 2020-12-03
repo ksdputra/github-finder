@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Alert as AlertUI } from '@material-ui/lab'
 import AlertContext from '../../context/alert/alertContext';
 
 export const Alert = () => {
@@ -8,9 +9,7 @@ export const Alert = () => {
 
   return (
     alert !== null && (
-      <div className={`alert alert-${alert.type}`}>
-        <i className='fas fa-info-circle' /> {alert.msg}
-      </div>
+      <AlertUI severity={alert.type}>{alert.msg}</AlertUI>
     )
   );
 };
