@@ -6,7 +6,7 @@ function Navbar (props) {
   return (
     <nav className='navbar bg-primary'>
       <h1>
-        <i className={props.icon} /> {props.title}
+        <Link to='/'><i className={props.icon} /> {props.title}</Link>
       </h1>
       <ul>
         <li>

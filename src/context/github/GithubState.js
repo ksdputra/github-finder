@@ -13,6 +13,8 @@ import {
 const GithubState = (props) => {
   const initialState = {
     users: [],
+    searchText: '',
+    pageCount: null,
     user: {},
     repos: [],
     loading: false
@@ -20,14 +22,15 @@ const GithubState = (props) => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
-  const searchUsers = async (text) => {
+  const searchUsers = async (text, selectedPage) => {
     setLoading();
 
-    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    const res = await axios.get(`https://api.github.com/search/users?q=${text}&page=${selectedPage}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
 
     dispatch({
       type: SEARCH_USERS,
-      payload: res.data.items
+      payload: res.data,
+      searchText: text
     })
   }
 
@@ -63,6 +66,8 @@ const GithubState = (props) => {
       user: state.user,
       repos: state.repos,
       loading: state.loading,
+      pageCount: state.pageCount,
+      searchText: state.searchText,
       searchUsers,
       clearUsers,
       getUser,

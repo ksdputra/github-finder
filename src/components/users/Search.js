@@ -13,7 +13,7 @@ const Search = (props) => {
     if (text === '') {
       alertContext.popAlert('Please enter something', 'light')
     } else {
-      githubContext.searchUsers(text);
+      githubContext.searchUsers(text, 1);
       setText('');
     }
   };

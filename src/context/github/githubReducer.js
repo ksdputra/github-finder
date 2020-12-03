@@ -11,7 +11,9 @@ export default (state, action) => {
     case SEARCH_USERS:
       return {
         ...state,
-        users: action.payload,
+        users: action.payload.items,
+        pageCount: Math.ceil(action.payload.total_count / 30),
+        searchText: action.searchText,
         loading: false
       }
     case GET_USER:
@@ -30,6 +32,8 @@ export default (state, action) => {
       return {
         ...state,
         users: [],
+        searchText: '',
+        pageCount: null,
         loading: false
       }
     case SET_LOADING:
