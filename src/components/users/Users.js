@@ -26,15 +26,22 @@ function Users () {
 
   return (
     <Fragment>
-      {searchContext.users.length > 0 && (
-        <Pagination
-          count={searchContext.pageCount}
-          variant="outlined"
-          shape="rounded"
-          page={page}
-          siblingCount={6}
-          onChange={handleChange}
-        />
+      {searchContext.pageCount !== null && (
+        <div className='card'>
+            <Pagination
+              count={searchContext.pageCount}
+              variant="outlined"
+              shape="rounded"
+              page={page}
+              siblingCount={6}
+              color='primary'
+              onChange={handleChange}
+              showFirstButton
+              showLastButton
+              style={{ display: 'flex', justifyContent: 'center' }}
+              disabled={searchContext.pageCount === 0 ? true : false}
+            />
+        </div>
       )}
       {searchContext.loading && (<SkeletonUserItem />)}
       {!searchContext.loading && (<div style={userStyle}>
