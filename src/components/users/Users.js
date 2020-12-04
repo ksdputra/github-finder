@@ -1,8 +1,20 @@
 import React, { Fragment, useState, useContext } from 'react';
 import UserItem from './UserItem';
-import Spinner from '../layout/Spinner';
 import Pagination from '@material-ui/lab/Pagination';
+import Skeleton from '@material-ui/lab/Skeleton';
 import SearchContext from '../../context/search/searchContext';
+
+const SkeletonUserItem = () => {
+  return (
+    <div style={userStyle}>
+      {[1,2,3].map(n => (
+        <div className='card-skeleton'>
+          <Skeleton variant='rect' height={191.59}/>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 function Users () {
   const searchContext = useContext(SearchContext);
@@ -26,7 +38,7 @@ function Users () {
           onChange={handleChange}
         />
       )}
-      {searchContext.loading && (<Spinner />)}
+      {searchContext.loading && (<SkeletonUserItem />)}
       {!searchContext.loading && (<div style={userStyle}>
         {searchContext.users.map(user =>(
           <UserItem key={user.id} user={user} />
