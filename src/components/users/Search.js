@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from 'react';
+import React, { useState, useContext } from 'react';
 import SearchContext from '../../context/search/searchContext';
 import AlertContext from '../../context/alert/alertContext';
 
