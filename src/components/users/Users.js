@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
 import Pagination from '@material-ui/lab/Pagination';
@@ -7,10 +7,11 @@ import SearchContext from '../../context/search/searchContext';
 function Users () {
   const searchContext = useContext(SearchContext);
 
-  const handleChange = (e) => {
-    const selectedPage = e.selected + 1
+  const [page, setPage] = useState(1);
 
-    searchContext.searchUsers(searchContext.searchText, selectedPage);
+  const handleChange = (e, value) => {
+    setPage(value);
+    searchContext.searchUsers(searchContext.searchText, value);
   };
 
   if (searchContext.loading) {
@@ -23,6 +24,8 @@ function Users () {
             count={searchContext.pageCount}
             variant="outlined"
             shape="rounded"
+            page={page}
+            siblingCount={6}
             onChange={handleChange}
           />
         )}
