@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useContext } from 'react'
-import Spinner from '../layout/Spinner';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Repos from '../repos/Repos';
 import { Link } from 'react-router-dom';
 import GithubContext from '../../context/github/githubContext';
@@ -17,7 +17,7 @@ const User = (props) => {
 
   const { loading, repos } = githubContext;
 
-  if (loading) return <Spinner />;
+  if (loading) return <CircularProgress alt='Loading...' style={{ margin: 'auto', display: 'block' }} />;
 
   return (
     <Fragment>
