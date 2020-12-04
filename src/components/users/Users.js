@@ -14,29 +14,26 @@ function Users () {
     searchContext.searchUsers(searchContext.searchText, value);
   };
 
-  if (searchContext.loading) {
-    return <Spinner />
-  } else {
-    return (
-      <Fragment>
-        {searchContext.users.length > 0 && (
-          <Pagination
-            count={searchContext.pageCount}
-            variant="outlined"
-            shape="rounded"
-            page={page}
-            siblingCount={6}
-            onChange={handleChange}
-          />
-        )}
-        <div style={userStyle}>
-          {searchContext.users.map(user =>(
-            <UserItem key={user.id} user={user} />
-          ))}
-        </div>
-      </Fragment>
-    )
-  }
+  return (
+    <Fragment>
+      {searchContext.users.length > 0 && (
+        <Pagination
+          count={searchContext.pageCount}
+          variant="outlined"
+          shape="rounded"
+          page={page}
+          siblingCount={6}
+          onChange={handleChange}
+        />
+      )}
+      {searchContext.loading && (<Spinner />)}
+      {!searchContext.loading && (<div style={userStyle}>
+        {searchContext.users.map(user =>(
+          <UserItem key={user.id} user={user} />
+        ))}
+      </div>)}
+    </Fragment>
+  )
 }
 
 const userStyle = {
