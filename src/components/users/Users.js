@@ -26,7 +26,7 @@ function Users () {
 
   return (
     <Fragment>
-      {searchContext.pageCount !== null && (
+      {(searchContext.pageCount !== null || searchContext.loading) && (
         <div className='card'>
             <Pagination
               count={searchContext.pageCount}
