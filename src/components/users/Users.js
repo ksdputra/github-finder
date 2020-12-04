@@ -7,11 +7,9 @@ import SearchContext from '../../context/search/searchContext';
 const SkeletonUserItem = () => {
   return (
     <div style={userStyle}>
-      {[1,2,3].map(n => (
-        <div className='card-skeleton'>
-          <Skeleton variant='rect' height={191.59}/>
-        </div>
-      ))}
+      <div className='card-skeleton'>
+        <Skeleton variant='rect' height={191.59}/>
+      </div>
     </div>
   )
 }
