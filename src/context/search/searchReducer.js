@@ -2,6 +2,7 @@ import {
   SEARCH_USERS,
   SET_LOADING,
   CLEAR_USERS,
+  CLEAR_SEARCH
 } from '../types';
 
 export default (state, action) => {
@@ -18,6 +19,12 @@ export default (state, action) => {
       return {
         ...state,
         users: [],
+        loading: false
+      }
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        users: [],
         pageCount: null,
         searchText: '',
         loading: false
@@ -25,7 +32,7 @@ export default (state, action) => {
     case SET_LOADING:
       return {
         ...state,
-        loading: true
+        loading: false
       }
     default:
       return state;

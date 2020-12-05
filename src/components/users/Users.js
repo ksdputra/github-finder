@@ -3,6 +3,8 @@ import UserItem from './UserItem';
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SearchContext from '../../context/search/searchContext';
+import AlertContext from '../../context/alert/alertContext';
+import HTTPSearch from '../../services/HTTPSearch';
 
 const SkeletonUserItem = () => {
   return (
@@ -16,12 +18,14 @@ const SkeletonUserItem = () => {
 
 function Users () {
   const searchContext = useContext(SearchContext);
+  const alertContext = useContext(AlertContext);
 
   const [page, setPage] = useState(1);
 
   const handleChange = (e, value) => {
     setPage(value);
-    searchContext.searchUsers(searchContext.searchText, value);
+    const search = new HTTPSearch();
+    search.users(searchContext.searchText, value, searchContext, alertContext)
   };
 
   return (

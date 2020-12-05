@@ -1,11 +1,11 @@
 import React, { useReducer } from 'react';
-import axios from 'axios';
 import SearchContext from './searchContext';
 import SearchReducer from './searchReducer';
 import {
   SEARCH_USERS,
   SET_LOADING,
   CLEAR_USERS,
+  CLEAR_SEARCH
 } from '../types';
 
 const SearchState = (props) => {
@@ -18,19 +18,17 @@ const SearchState = (props) => {
 
   const [state, dispatch] = useReducer(SearchReducer, initialState);
 
-  const searchUsers = async (text, selectedPage) => {
-    setLoading();
-
-    const res = await axios.get(`https://api.github.com/search/users?q=${text}&page=${selectedPage}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-
+  const dispatchUsers = (text, data) => {
     dispatch({
       type: SEARCH_USERS,
-      payload: res.data,
+      payload: data,
       searchText: text
     })
   }
 
-  const clearUsers = () => dispatch({ type: CLEAR_USERS });
+  const clearUsers = () => dispatch({ type: CLEAR_USERS })
+
+  const clearSearch = () => dispatch({ type: CLEAR_SEARCH });
 
   const setLoading = () => dispatch({ type: SET_LOADING });
 
@@ -40,8 +38,10 @@ const SearchState = (props) => {
       loading: state.loading,
       pageCount: state.pageCount,
       searchText: state.searchText,
-      searchUsers,
+      dispatchUsers,
       clearUsers,
+      clearSearch,
+      setLoading
     }}>
     {props.children}
   </SearchContext.Provider>

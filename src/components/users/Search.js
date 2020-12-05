@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import SearchContext from '../../context/search/searchContext';
 import AlertContext from '../../context/alert/alertContext';
+import HTTPSearch from '../../services/HTTPSearch';
 
 const Search = (props) => {
   const searchContext = useContext(SearchContext);
@@ -13,7 +14,8 @@ const Search = (props) => {
     if (text === '') {
       alertContext.popAlert('Please enter something', 'error')
     } else {
-      searchContext.searchUsers(text, 1);
+      const search = new HTTPSearch();
+      search.users(text, 1, searchContext, alertContext)
       setText('');
     }
   };
@@ -26,7 +28,7 @@ const Search = (props) => {
         <input type='text' name='text' placeholder='Search Users...' value={text} onChange={onChange} />
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
-      {(searchContext.users.length > 0 || searchContext.loading) && (<button className='btn btn-light btn-block' onClick={searchContext.clearUsers} disabled={searchContext.loading}>Clear</button>)}
+      {(searchContext.users.length > 0 || searchContext.loading) && (<button className='btn btn-light btn-block' onClick={searchContext.clearSearch} disabled={searchContext.loading}>Clear</button>)}
     </div>
   )
 };
