@@ -11,6 +11,7 @@ export default (state, action) => {
       return {
         ...state,
         users: action.payload.items,
+        page: action.page,
         pageCount: Math.ceil(action.payload.total_count / 30),
         searchText: action.searchText,
         loading: false
@@ -25,6 +26,7 @@ export default (state, action) => {
       return {
         ...state,
         users: [],
+        page: null,
         pageCount: null,
         searchText: '',
         loading: false
@@ -32,7 +34,7 @@ export default (state, action) => {
     case SET_LOADING:
       return {
         ...state,
-        loading: false
+        loading: true
       }
     default:
       return state;

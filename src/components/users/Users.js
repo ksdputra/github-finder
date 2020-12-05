@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import UserItem from './UserItem';
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -20,10 +20,7 @@ function Users () {
   const searchContext = useContext(SearchContext);
   const alertContext = useContext(AlertContext);
 
-  const [page, setPage] = useState(1);
-
   const handleChange = (e, value) => {
-    setPage(value);
     const search = new HTTPSearch();
     search.users(searchContext.searchText, value, searchContext, alertContext)
   };
@@ -36,7 +33,7 @@ function Users () {
               count={searchContext.pageCount}
               variant="outlined"
               shape="rounded"
-              page={page}
+              page={searchContext.page}
               siblingCount={6}
               color='primary'
               onChange={handleChange}

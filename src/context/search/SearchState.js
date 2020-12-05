@@ -12,17 +12,19 @@ const SearchState = (props) => {
   const initialState = {
     users: [],
     searchText: '',
+    page: null,
     pageCount: null,
     loading: false
   }
 
   const [state, dispatch] = useReducer(SearchReducer, initialState);
 
-  const dispatchUsers = (text, data) => {
+  const dispatchUsers = (text, page, data) => {
     dispatch({
       type: SEARCH_USERS,
-      payload: data,
-      searchText: text
+      searchText: text,
+      page: page,
+      payload: data
     })
   }
 
@@ -36,6 +38,7 @@ const SearchState = (props) => {
     value={{
       users: state.users,
       loading: state.loading,
+      page: state.page,
       pageCount: state.pageCount,
       searchText: state.searchText,
       dispatchUsers,

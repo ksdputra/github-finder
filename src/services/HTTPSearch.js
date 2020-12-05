@@ -2,13 +2,13 @@ import axios from 'axios';
 
 class HTTPSearch {
 
-  users = async (text, selectedPage, searchContext, alertContext) => {
-    const url = `https://api.github.com/search/users?q=${text}&page=${selectedPage}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+  users = async (text, page, searchContext, alertContext) => {
+    const url = `https://api.github.com/search/users?q=${text}&page=${page}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
 
     try {
       searchContext.setLoading()
       const response = await axios.get(url);
-      searchContext.dispatchUsers(text, response.data)
+      searchContext.dispatchUsers(text, page, response.data)
     } catch (error) {
       if (error.response) {
         searchContext.clearUsers()
