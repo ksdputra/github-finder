@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TimeAgo from 'timeago-react';
 
 const Repos = ({ repos }) => {
   return (
@@ -25,7 +26,7 @@ const Repos = ({ repos }) => {
             <TableCell>{repo.name}</TableCell>
             <TableCell>{repo.description}</TableCell>
             <TableCell>{repo.language}</TableCell>
-            <TableCell>{repo.updated_at}</TableCell>
+            <TableCell><TimeAgo datetime={repo.updated_at} /></TableCell>
             <TableCell><Button variant='contained' color='primary' href={repo.html_url}>Go To Repo</Button></TableCell>
           </TableRow> 
         ))}
