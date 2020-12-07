@@ -1,24 +1,27 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import SearchContext from '../../context/search/searchContext';
 import UsersContext from '../../context/users/usersContext';
+import ReposContext from '../../context/repos/reposContext';
 import AlertContext from '../../context/alert/alertContext';
 import { searchUsers } from '../../services/GithubService';
 
 const Search = (props) => {
   const searchContext = useContext(SearchContext);
   const usersContext = useContext(UsersContext);
+  const reposContext = useContext(ReposContext);
   const alertContext = useContext(AlertContext);
 
   const [text, setText] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
+    props.initiateSearch()
     if (text === '') {
       alertContext.popAlert('Please enter something', 'error')
     } else {
       searchContext.dispatchText(text)
       searchUsers(text, 1, usersContext, alertContext)
-      setText('');
     }
   };
 
@@ -27,6 +30,7 @@ const Search = (props) => {
   const clearButtonClicked = e => {
     searchContext.clearSearch()
     usersContext.clearSearch()
+    reposContext.clearSearch()
   }
 
   return (
@@ -41,5 +45,9 @@ const Search = (props) => {
     </div>
   )
 };
+
+Search.propTypes = {
+  initiateSearch: PropTypes.func.isRequired
+}
 
 export default Search

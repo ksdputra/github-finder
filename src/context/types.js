@@ -11,6 +11,8 @@ export const SEARCH_USERS = 'SEARCH_USERS';
 export const CLEAR_USERS = 'CLEAR_USERS';
 
 // Repos
+export const SEARCH_REPOS = 'SEARCH_REPOS';
+export const CLEAR_REPOS = 'CLEAR_REPOS';
 
 // Alert
 export const SET_ALERT = 'SET_ALERT';

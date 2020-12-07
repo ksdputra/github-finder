@@ -10,6 +10,7 @@ import NotFound from './components/pages/NotFound';
 import GithubState from './context/github/GithubState';
 import SearchState from './context/search/SearchState';
 import UsersState from './context/users/UsersState';
+import ReposState from './context/repos/ReposState';
 import AlertState from './context/alert/AlertState';
 
 import './App.css';
@@ -19,22 +20,24 @@ const App = () => {
     <GithubState>
       <SearchState>
         <UsersState>
-          <AlertState>
-          <Router>
-          <div className="App">
-            <Navbar />
-            <div className='container'>
-              <Alert />
-              <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/about' component={About} />
-                <Route exact path='/user/:username' component={User} />
-                <Route component={NotFound} />
-              </Switch>
-            </div>
-          </div>
-          </Router>
-          </AlertState>
+          <ReposState>
+            <AlertState>
+              <Router>
+                <div className="App">
+                  <Navbar />
+                  <div className='container'>
+                    <Alert />
+                    <Switch>
+                      <Route exact path='/' component={Home} />
+                      <Route exact path='/about' component={About} />
+                      <Route exact path='/user/:username' component={User} />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </div>
+                </div>
+              </Router>
+            </AlertState>
+          </ReposState>
         </UsersState>
       </SearchState>
     </GithubState>
