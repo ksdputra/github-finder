@@ -9,9 +9,11 @@ import { searchUsers } from '../../services/GithubService';
 const SkeletonUserItem = () => {
   return (
     <div style={userStyle}>
-      <div className='card-skeleton'>
-        <Skeleton variant='rect' height={191.59}/>
-      </div>
+      {[1,2,3].map((x) => (
+        <div className='card-skeleton' key={`skeleton-${x}`}>
+          <Skeleton variant='rect' height={191.59}/>
+        </div>
+      ))}
     </div>
   )
 }
