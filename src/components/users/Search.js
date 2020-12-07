@@ -28,6 +28,7 @@ const Search = (props) => {
   const onChange = e => setText(e.target.value);
 
   const clearButtonClicked = e => {
+    setText('')
     searchContext.clearSearch()
     usersContext.clearSearch()
     reposContext.clearSearch()
@@ -36,7 +37,7 @@ const Search = (props) => {
   return (
     <div>
       <form onSubmit={onSubmit} className='form'>
-        <input type='text' name='text' placeholder='Search Users...' value={text} onChange={onChange} />
+        <input type='text' name='text' placeholder='Search something...' value={text} onChange={onChange} />
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
       {searchContext.isSearching && (
