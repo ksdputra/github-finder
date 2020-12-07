@@ -9,6 +9,7 @@ import NotFound from './components/pages/NotFound';
 
 import GithubState from './context/github/GithubState';
 import SearchState from './context/search/SearchState';
+import UsersState from './context/users/UsersState';
 import AlertState from './context/alert/AlertState';
 
 import './App.css';
@@ -17,22 +18,24 @@ const App = () => {
   return (
     <GithubState>
       <SearchState>
-        <AlertState>
-        <Router>
-        <div className="App">
-          <Navbar />
-          <div className='container'>
-            <Alert />
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/about' component={About} />
-              <Route exact path='/user/:username' component={User} />
-              <Route component={NotFound} />
-            </Switch>
+        <UsersState>
+          <AlertState>
+          <Router>
+          <div className="App">
+            <Navbar />
+            <div className='container'>
+              <Alert />
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/about' component={About} />
+                <Route exact path='/user/:username' component={User} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
           </div>
-        </div>
-        </Router>
-        </AlertState>
+          </Router>
+          </AlertState>
+        </UsersState>
       </SearchState>
     </GithubState>
   );

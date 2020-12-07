@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import SearchContext from '../../context/search/searchContext';
+import UsersContext from '../../context/users/usersContext';
 import AlertContext from '../../context/alert/alertContext';
 import { searchUsers } from '../../services/GithubService';
 
 const Search = (props) => {
   const searchContext = useContext(SearchContext);
+  const usersContext = useContext(UsersContext);
   const alertContext = useContext(AlertContext);
 
   const [text, setText] = useState('');
@@ -14,12 +16,18 @@ const Search = (props) => {
     if (text === '') {
       alertContext.popAlert('Please enter something', 'error')
     } else {
-      searchUsers(text, 1, searchContext, alertContext)
+      searchContext.dispatchText(text)
+      searchUsers(text, 1, usersContext, alertContext)
       setText('');
     }
   };
 
   const onChange = e => setText(e.target.value);
+
+  const clearButtonClicked = e => {
+    searchContext.clearSearch()
+    usersContext.clearSearch()
+  }
 
   return (
     <div>
@@ -27,8 +35,8 @@ const Search = (props) => {
         <input type='text' name='text' placeholder='Search Users...' value={text} onChange={onChange} />
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
-      {(searchContext.users.length > 0 || searchContext.loading) && (
-        <button className='btn btn-light btn-block' onClick={searchContext.clearSearch} disabled={searchContext.loading}>Clear</button>
+      {searchContext.isSearching && (
+        <button className='btn btn-light btn-block' onClick={clearButtonClicked}>Clear</button>
       )}
     </div>
   )

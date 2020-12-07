@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <Fragment>
       <Search />
-      {(searchContext.users.length > 0 || searchContext.loading) && (
+      {searchContext.isSearching && (
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label='Users' />
           <Tab label='Repos' />

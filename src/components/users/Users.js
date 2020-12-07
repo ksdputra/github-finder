@@ -3,6 +3,7 @@ import UserItem from './UserItem';
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SearchContext from '../../context/search/searchContext';
+import UsersContext from '../../context/users/usersContext';
 import AlertContext from '../../context/alert/alertContext';
 import { searchUsers } from '../../services/GithubService';
 
@@ -20,34 +21,35 @@ const SkeletonUserItem = () => {
 
 function Users () {
   const searchContext = useContext(SearchContext);
+  const usersContext = useContext(UsersContext);
   const alertContext = useContext(AlertContext);
 
   const handleChange = (e, value) => {
-    searchUsers(searchContext.searchText, value, searchContext, alertContext)
+    searchUsers(searchContext.text, value, usersContext, alertContext)
   };
 
   return (
     <Fragment>
-      {(searchContext.pageCount !== null || searchContext.loading) && (
+      {(usersContext.pageCount !== null || usersContext.loading) && (
         <div className='card'>
             <Pagination
-              count={searchContext.pageCount}
+              count={usersContext.pageCount}
               variant="outlined"
               shape="rounded"
-              page={searchContext.page}
+              page={usersContext.page}
               siblingCount={6}
               color='primary'
               onChange={handleChange}
               showFirstButton
               showLastButton
               style={{ display: 'flex', justifyContent: 'center' }}
-              disabled={searchContext.pageCount === 0 ? true : false}
+              disabled={usersContext.pageCount === 0 ? true : false}
             />
         </div>
       )}
-      {searchContext.loading && (<SkeletonUserItem />)}
-      {!searchContext.loading && (<div style={userStyle}>
-        {searchContext.users.map(user =>(
+      {usersContext.loading && (<SkeletonUserItem />)}
+      {!usersContext.loading && (<div style={userStyle}>
+        {usersContext.users.map(user =>(
           <UserItem key={user.id} user={user} />
         ))}
       </div>)}
