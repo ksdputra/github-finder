@@ -4,7 +4,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SearchContext from '../../context/search/searchContext';
 import AlertContext from '../../context/alert/alertContext';
-import HTTPSearch from '../../services/HTTPSearch';
+import { searchUsers } from '../../services/GithubService';
 
 const SkeletonUserItem = () => {
   return (
@@ -21,8 +21,7 @@ function Users () {
   const alertContext = useContext(AlertContext);
 
   const handleChange = (e, value) => {
-    const search = new HTTPSearch();
-    search.users(searchContext.searchText, value, searchContext, alertContext)
+    searchUsers(searchContext.searchText, value, searchContext, alertContext)
   };
 
   return (

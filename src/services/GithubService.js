@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-class HTTPSearch {
-
-  users = async (text, page, searchContext, alertContext) => {
+  export const searchUsers = async (text, page, searchContext, alertContext) => {
     const url = `https://api.github.com/search/users?q=${text}&page=${page}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
 
     try {
@@ -20,6 +18,4 @@ class HTTPSearch {
       }
     }
   }
-}
 
-export default HTTPSearch

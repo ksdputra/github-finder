@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import SearchContext from '../../context/search/searchContext';
 import AlertContext from '../../context/alert/alertContext';
-import HTTPSearch from '../../services/HTTPSearch';
+import { searchUsers } from '../../services/GithubService';
 
 const Search = (props) => {
   const searchContext = useContext(SearchContext);
@@ -14,8 +14,7 @@ const Search = (props) => {
     if (text === '') {
       alertContext.popAlert('Please enter something', 'error')
     } else {
-      const search = new HTTPSearch();
-      search.users(text, 1, searchContext, alertContext)
+      searchUsers(text, 1, searchContext, alertContext)
       setText('');
     }
   };
