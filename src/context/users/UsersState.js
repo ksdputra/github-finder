@@ -5,6 +5,7 @@ import {
   SEARCH_USERS,
   CLEAR_USERS,
   CLEAR_SEARCH,
+  SET_PAGE,
   SET_LOADING
 } from '../types';
 
@@ -31,6 +32,8 @@ const UsersState = (props) => {
 
   const clearSearch = () => dispatch({ type: CLEAR_SEARCH });
 
+  const setPage = (page) => dispatch({ type: SET_PAGE, page: page })
+
   const setLoading = () => dispatch({ type: SET_LOADING });
 
   return <UsersContext.Provider
@@ -42,6 +45,7 @@ const UsersState = (props) => {
       dispatchUsers,
       clearUsers,
       clearSearch,
+      setPage,
       setLoading
     }}>
     {props.children}

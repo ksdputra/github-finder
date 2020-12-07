@@ -5,6 +5,7 @@ import axios from 'axios';
 
     try {
       usersContext.setLoading()
+      usersContext.setPage(page)
       const response = await axios.get(url);
       usersContext.dispatchUsers(text, page, response.data)
     } catch (error) {
