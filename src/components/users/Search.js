@@ -27,7 +27,9 @@ const Search = (props) => {
         <input type='text' name='text' placeholder='Search Users...' value={text} onChange={onChange} />
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
-      {(searchContext.users.length > 0 || searchContext.loading) && (<button className='btn btn-light btn-block' onClick={searchContext.clearSearch} disabled={searchContext.loading}>Clear</button>)}
+      {(searchContext.users.length > 0 || searchContext.loading) && (
+        <button className='btn btn-light btn-block' onClick={searchContext.clearSearch} disabled={searchContext.loading}>Clear</button>
+      )}
     </div>
   )
 };
