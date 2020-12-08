@@ -4,7 +4,6 @@ import SearchContext from '../../context/search/searchContext';
 import UsersContext from '../../context/users/usersContext';
 import ReposContext from '../../context/repos/reposContext';
 import AlertContext from '../../context/alert/alertContext';
-import { searchUsers } from '../../services/GithubService';
 
 const Search = (props) => {
   const searchContext = useContext(SearchContext);
@@ -40,7 +39,7 @@ const Search = (props) => {
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
       {searchContext.isSearching && (
-        <button className='btn btn-light btn-block' onClick={clearButtonClicked}>Clear</button>
+        <button className='btn btn-light btn-block' onClick={clearButtonClicked} disabled={usersContext.loading || reposContext.loading}>Clear</button>
       )}
     </div>
   )
