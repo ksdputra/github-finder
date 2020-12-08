@@ -5,6 +5,7 @@ import SearchContext from '../../context/search/searchContext';
 import ReposContext from '../../context/repos/reposContext';
 import AlertContext from '../../context/alert/alertContext';
 import { searchRepos } from '../../services/GithubService';
+import TimeAgo from 'timeago-react';
 
 const SkeletonRepoItem = () => {
   return (
@@ -50,9 +51,18 @@ const Repos = () => {
       {!reposContext.loading && (
         <div>
           {reposContext.repos.map((repo) => (
-            <div className='card' key={`repo-${repo.id}`}>
-              <a href={repo.html_url}>{repo.full_name}</a>
-            </div>
+            <Fragment>
+              <div className='card' key={`repo-${repo.id}`}>
+                <div>
+                  <a href={repo.html_url}>{repo.full_name}</a>
+                </div>
+                <p>{repo.description}</p>
+                <div>
+                  {repo.language && <div className='badge badge-success'>{repo.language}</div>}
+                  <div className='badge badge-light'>Updated on <TimeAgo datetime={repo.updated_at} /></div>
+                </div>
+              </div>
+            </Fragment>
           ))}
         </div>
       )}
