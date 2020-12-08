@@ -51,11 +51,9 @@ const Repos = () => {
       {!reposContext.loading && (
         <div>
           {reposContext.repos.map((repo) => (
-            <Fragment>
-              <div className='card' key={`repo-${repo.id}`}>
-                <div>
-                  <a href={repo.html_url}>{repo.full_name}</a>
-                </div>
+            <Fragment key={`repo-${repo.id}`}>
+              <div className='card'>
+                <h3><a href={repo.html_url}>{repo.full_name}</a></h3>
                 <p>{repo.description}</p>
                 <div>
                   {repo.language && <div className='badge badge-success'>{repo.language}</div>}
