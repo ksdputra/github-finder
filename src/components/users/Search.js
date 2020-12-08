@@ -16,12 +16,11 @@ const Search = (props) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    props.initiateSearch()
     if (text === '') {
       alertContext.popAlert('Please enter something', 'error')
     } else {
       searchContext.dispatchText(text)
-      searchUsers(text, 1, usersContext, alertContext)
+      props.initiateSearch()
     }
   };
 

@@ -31,7 +31,12 @@ const Home = () => {
   };
 
   const initiateSearch = () => {
-    setValue(0)
+    switch(value) {
+      case 0:
+        searchUsers(searchContext.text, 1, usersContext, alertContext)
+      case 1:
+        searchRepos(searchContext.text, 1, reposContext, alertContext)  
+    }
   }
 
   return (
