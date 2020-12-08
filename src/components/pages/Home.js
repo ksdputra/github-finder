@@ -22,20 +22,24 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
-    switch(value) {
+    switch(newValue) {
       case 0:
-        searchUsers(searchContext.text, 1, usersContext, alertContext)
+        return searchUsers(searchContext.text, 1, usersContext, alertContext)
       case 1:
-        searchRepos(searchContext.text, 1, reposContext, alertContext)  
+        return searchRepos(searchContext.text, 1, reposContext, alertContext)  
+      default:
+        return
     }
   };
 
-  const initiateSearch = () => {
+  const initiateSearch = (text) => {
     switch(value) {
       case 0:
-        searchUsers(searchContext.text, 1, usersContext, alertContext)
+        return searchUsers(text, 1, usersContext, alertContext)
       case 1:
-        searchRepos(searchContext.text, 1, reposContext, alertContext)  
+        return searchRepos(text, 1, reposContext, alertContext)  
+      default:
+        return
     }
   }
 

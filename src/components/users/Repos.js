@@ -50,7 +50,7 @@ const Repos = () => {
       {!reposContext.loading && (
         <div>
           {reposContext.repos.map((repo) => (
-            <div className='card'>
+            <div className='card' key={`repo-${repo.id}`}>
               <a href={repo.html_url}>{repo.full_name}</a>
             </div>
           ))}

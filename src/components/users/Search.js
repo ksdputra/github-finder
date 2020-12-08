@@ -20,7 +20,7 @@ const Search = (props) => {
       alertContext.popAlert('Please enter something', 'error')
     } else {
       searchContext.dispatchText(text)
-      props.initiateSearch()
+      props.initiateSearch(text)
     }
   };
 
