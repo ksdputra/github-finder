@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropType from 'prop-types';
 
-import Button from '@material-ui/core/Button';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
-import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
@@ -101,23 +99,19 @@ const Repos = ({ repos }) => {
 
   return (
     <Table className='card'>
-      <TableHead>
-        <TableRow>
-          <TableCell>Repository</TableCell>
-          <TableCell>Description</TableCell>
-          <TableCell>Language</TableCell>
-          <TableCell>Updated</TableCell>
-          <TableCell>Action</TableCell>
-        </TableRow>
-      </TableHead>
       <TableBody>
-        {(rowsPerPage > 0 ? repos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : repos).map((repo) => (
+      {(rowsPerPage > 0 ? repos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : repos).map((repo) => (
           <TableRow key={repo.name}>
-            <TableCell>{repo.name}</TableCell>
-            <TableCell>{repo.description}</TableCell>
-            <TableCell>{repo.language}</TableCell>
-            <TableCell><TimeAgo datetime={repo.updated_at} /></TableCell>
-            <TableCell><Button variant='contained' color='primary' href={repo.html_url}>Go To Repo</Button></TableCell>
+            <TableCell>
+              <Fragment>
+                <h3><a href={repo.html_url}>{repo.full_name}</a></h3>
+                <p>{repo.description}</p>
+                <div>
+                  {repo.language && <div className='badge badge-success'>{repo.language}</div>}
+                  <div className='badge badge-light'>Updated on <TimeAgo datetime={repo.updated_at} /></div>
+                </div>
+              </Fragment>
+            </TableCell>
           </TableRow> 
         ))}
       </TableBody>
