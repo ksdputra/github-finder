@@ -1,21 +1,20 @@
 import React, { Fragment, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchUsers, searchRepos } from '../../actions/searchActions';
 import Search from '../users/Search';
 import Users from '../users/Users';
 import Repos from '../users/Repos';
-import SearchContext from '../../context/search/searchContext';
-import UsersContext from '../../context/users/usersContext';
-import ReposContext from '../../context/repos/reposContext';
 import AlertContext from '../../context/alert/alertContext';
-import { searchUsers, searchRepos } from '../../services/GithubService';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 const Home = () => {
-  const searchContext = useContext(SearchContext);
-  const usersContext = useContext(UsersContext);
-  const reposContext = useContext(ReposContext);
   const alertContext = useContext(AlertContext);
+
+  const dispatch = useDispatch()
+
+  const searchState = useSelector(state => state.search)
 
   const [value, setValue] = useState(0);
 
@@ -24,9 +23,9 @@ const Home = () => {
 
     switch(newValue) {
       case 0:
-        return searchUsers(searchContext.text, 1, usersContext, alertContext)
-      case 1:
-        return searchRepos(searchContext.text, 1, reposContext, alertContext)  
+        return dispatch(searchUsers(searchState.text, 1))
+      case 1:  
+        return dispatch(searchRepos(searchState.text, 1))
       default:
         return
     }
@@ -35,9 +34,9 @@ const Home = () => {
   const initiateSearch = (text) => {
     switch(value) {
       case 0:
-        return searchUsers(text, 1, usersContext, alertContext)
+        return dispatch(searchUsers(text, 1))
       case 1:
-        return searchRepos(text, 1, reposContext, alertContext)  
+        return dispatch(searchRepos(text, 1))
       default:
         return
     }
@@ -46,7 +45,7 @@ const Home = () => {
   return (
     <Fragment>
       <Search initiateSearch={initiateSearch}/>
-      {searchContext.isSearching && (
+      {searchState.isSearching && (
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label='Users' />
           <Tab label='Repos' />

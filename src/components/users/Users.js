@@ -1,11 +1,10 @@
 import React, { Fragment, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchUsers } from '../../actions/searchActions';
 import UserItem from './UserItem';
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
-import SearchContext from '../../context/search/searchContext';
-import UsersContext from '../../context/users/usersContext';
 import AlertContext from '../../context/alert/alertContext';
-import { searchUsers } from '../../services/GithubService';
 
 const SkeletonUserItem = () => {
   return (
@@ -20,36 +19,40 @@ const SkeletonUserItem = () => {
 }
 
 function Users () {
-  const searchContext = useContext(SearchContext);
-  const usersContext = useContext(UsersContext);
   const alertContext = useContext(AlertContext);
+  
+  const dispatch = useDispatch()
+
+  const searchState = useSelector(state => state.search)
+  const usersState = useSelector(state => state.userList)
+  const { loading, page, pageCount, users, error } = usersState
 
   const handleChange = (e, value) => {
-    searchUsers(searchContext.text, value, usersContext, alertContext)
+    dispatch(searchUsers(searchState.text, value))
   };
 
   return (
     <Fragment>
-      {(usersContext.pageCount !== null || usersContext.loading) && (
+      {(pageCount !== null || loading) && (
         <div className='card'>
             <Pagination
-              count={usersContext.pageCount}
+              count={pageCount}
               variant="outlined"
               shape="rounded"
-              page={usersContext.page}
+              page={page}
               siblingCount={6}
               color='primary'
               onChange={handleChange}
               showFirstButton
               showLastButton
               style={{ display: 'flex', justifyContent: 'center' }}
-              disabled={usersContext.pageCount === 0 ? true : false}
+              disabled={pageCount === 0}
             />
         </div>
       )}
-      {usersContext.loading && (<SkeletonUserItem />)}
-      {!usersContext.loading && (<div style={userStyle}>
-        {usersContext.users.map(user =>(
+      {loading && (<SkeletonUserItem />)}
+      {!loading && (<div style={userStyle}>
+        {users.map(user =>(
           <UserItem key={user.id} user={user} />
         ))}
       </div>)}

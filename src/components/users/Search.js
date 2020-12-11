@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setText as changeText, clearSearch } from '../../actions/searchActions';
 import PropTypes from 'prop-types';
-import SearchContext from '../../context/search/searchContext';
-import UsersContext from '../../context/users/usersContext';
-import ReposContext from '../../context/repos/reposContext';
 import AlertContext from '../../context/alert/alertContext';
 
 const Search = (props) => {
-  const searchContext = useContext(SearchContext);
-  const usersContext = useContext(UsersContext);
-  const reposContext = useContext(ReposContext);
   const alertContext = useContext(AlertContext);
+
+  const dispatch = useDispatch()
+
+  const usersState = useSelector(state => state.userList)
+  const reposState = useSelector(state => state.repoList)
+  const searchState = useSelector(state => state.search)
 
   const [text, setText] = useState('');
 
@@ -18,7 +20,7 @@ const Search = (props) => {
     if (text === '') {
       alertContext.popAlert('Please enter something', 'error')
     } else {
-      searchContext.dispatchText(text)
+      dispatch(changeText(text))
       props.initiateSearch(text)
     }
   };
@@ -27,9 +29,7 @@ const Search = (props) => {
 
   const clearButtonClicked = e => {
     setText('')
-    searchContext.clearSearch()
-    usersContext.clearSearch()
-    reposContext.clearSearch()
+    dispatch(clearSearch())
   }
 
   return (
@@ -38,8 +38,8 @@ const Search = (props) => {
         <input type='text' name='text' placeholder='Search something...' value={text} onChange={onChange} />
         <input type='submit' value='Search' className='btn btn-dark btn-block' />
       </form>
-      {searchContext.isSearching && (
-        <button className='btn btn-light btn-block' onClick={clearButtonClicked} disabled={usersContext.loading || reposContext.loading}>Clear</button>
+      {searchState.isSearching && (
+        <button className='btn btn-light btn-block' onClick={clearButtonClicked} disabled={usersState.loading || reposState.loading}>Clear</button>
       )}
     </div>
   )

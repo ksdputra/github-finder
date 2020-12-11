@@ -1,10 +1,9 @@
 import React, { Fragment, useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { searchRepos } from '../../actions/searchActions';
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
-import SearchContext from '../../context/search/searchContext';
-import ReposContext from '../../context/repos/reposContext';
 import AlertContext from '../../context/alert/alertContext';
-import { searchRepos } from '../../services/GithubService';
 import TimeAgo from 'timeago-react';
 
 const SkeletonRepoItem = () => {
@@ -20,37 +19,41 @@ const SkeletonRepoItem = () => {
 }
 
 const Repos = () => {
-  const searchContext = useContext(SearchContext);
-  const reposContext = useContext(ReposContext);
   const alertContext = useContext(AlertContext);
 
+  const dispatch = useDispatch()
+
+  const searchState = useSelector(state => state.search)
+  const reposState = useSelector(state => state.repoList)
+  const { loading, page, pageCount, repos, error } = reposState
+
   const handleChange = (e, value) => {
-    searchRepos(searchContext.text, value, reposContext, alertContext)
+    dispatch(searchRepos(searchState.text, value))
   };
 
   return (
     <Fragment>
-      {(reposContext.pageCount !== null || reposContext.loading) && (
+      {(pageCount !== null || loading) && (
         <div className='card'>
             <Pagination
-              count={reposContext.pageCount}
+              count={pageCount}
               variant="outlined"
               shape="rounded"
-              page={reposContext.page}
+              page={page}
               siblingCount={6}
               color='primary'
               onChange={handleChange}
               showFirstButton
               showLastButton
               style={{ display: 'flex', justifyContent: 'center' }}
-              disabled={reposContext.pageCount === 0 ? true : false}
+              disabled={pageCount === 0}
             />
         </div>
       )}
-      {reposContext.loading && (<SkeletonRepoItem />)}
-      {!reposContext.loading && (
+      {loading && (<SkeletonRepoItem />)}
+      {!loading && (
         <div>
-          {reposContext.repos.map((repo) => (
+          {repos.map((repo) => (
             <Fragment key={`repo-${repo.id}`}>
               <div className='card'>
                 <h3><a href={repo.html_url}>{repo.full_name}</a></h3>
