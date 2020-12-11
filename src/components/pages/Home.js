@@ -1,16 +1,14 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchUsers, searchRepos } from '../../actions/searchActions';
 import Search from '../users/Search';
 import Users from '../users/Users';
 import Repos from '../users/Repos';
-import AlertContext from '../../context/alert/alertContext';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 const Home = () => {
-  const alertContext = useContext(AlertContext);
 
   const dispatch = useDispatch()
 
