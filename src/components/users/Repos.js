@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRepos } from '../../actions/searchActions';
 import Pagination from '@material-ui/lab/Pagination';

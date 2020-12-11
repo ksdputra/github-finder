@@ -1,21 +1,26 @@
-import React, { Fragment, useEffect, useContext } from 'react'
+import React, { Fragment, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserDetail, fetchUserRepo } from '../../actions/userActions';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Repos from '../repos/Repos';
 import { Link } from 'react-router-dom';
-import GithubContext from '../../context/github/githubContext';
 
 const User = (props) => {
-  const githubContext = useContext(GithubContext);
+
+  const dispatch = useDispatch()
+
+  const userDetailState = useSelector(state => state.userDetail)
+  const userReposState = useSelector(state => state.userRepos)
 
   useEffect(() => {
-    githubContext.getUser(props.match.params.username)
-    githubContext.getUserRepos(props.match.params.username)
+    dispatch(fetchUserDetail(props.match.params.username))
+    dispatch(fetchUserRepo(props.match.params.username))
     // eslint-disable-next-line
-  }, [])
+  }, [dispatch])
 
-  const { name, avatar_url, location, company, bio, blog, login, html_url, followers, following, public_repos, public_gists, hireable } = githubContext.user;
+  const { name, avatar_url, location, company, bio, blog, login, html_url, followers, following, public_repos, public_gists, hireable } = userDetailState.user
 
-  const { loading, repos } = githubContext;
+  const { loading, repos } = userReposState
 
   if (loading) return <CircularProgress alt='Loading...' style={{ margin: 'auto', display: 'block' }} />;
 
