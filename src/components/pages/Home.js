@@ -9,7 +9,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 const Home = () => {
-
   const dispatch = useDispatch()
 
   const searchState = useSelector(state => state.search)

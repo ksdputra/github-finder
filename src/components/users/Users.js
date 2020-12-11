@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchUsers } from '../../actions/searchActions';
 import { popAlert } from '../../actions/alertActions';
 import UserItem from './UserItem';
+
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
 

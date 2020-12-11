@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserDetail, fetchUserRepo } from '../../actions/userActions';
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Repos from '../repos/Repos';
 import { Link } from 'react-router-dom';
+
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const User = (props) => {
 

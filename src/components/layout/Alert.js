@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAlert } from '../../actions/alertActions';
-import { Alert as AlertUI } from '@material-ui/lab'
+import { Alert as AlertUI } from '@material-ui/lab';
 
 export const Alert = () => {
 

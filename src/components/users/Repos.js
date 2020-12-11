@@ -2,8 +2,10 @@ import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRepos } from '../../actions/searchActions';
 import { popAlert } from '../../actions/alertActions';
+
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
+
 import TimeAgo from 'timeago-react';
 
 const SkeletonRepoItem = () => {
