@@ -4,6 +4,7 @@ Link: [github-finder-x.netlify.app](https://github-finder-x.netlify.app)
 - React
 - material-ui
 - axios
+- Redux
 
 # Releases
 ### Version 0.1.0
@@ -17,3 +18,9 @@ Link: [github-finder-x.netlify.app](https://github-finder-x.netlify.app)
 ### Version 0.2.1
 - Catch http error
 - Fixing pagination bugs
+
+### Version 0.3.0
+- User can search repositories with the given query
+- User can see all repos of a user
+- Change from context to redux
+- Update some UI
