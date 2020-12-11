@@ -27,6 +27,12 @@ const Repos = () => {
   const reposState = useSelector(state => state.repoList)
   const { loading, page, pageCount, repos, error } = reposState
 
+  useEffect(() => {
+    if (error) {
+      alertContext.popAlert(error, 'error')
+    }
+  }, [error])
+
   const handleChange = (e, value) => {
     dispatch(searchRepos(searchState.text, value))
   };

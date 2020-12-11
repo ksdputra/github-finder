@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchUsers } from '../../actions/searchActions';
 import UserItem from './UserItem';
@@ -26,6 +26,12 @@ function Users () {
   const searchState = useSelector(state => state.search)
   const usersState = useSelector(state => state.userList)
   const { loading, page, pageCount, users, error } = usersState
+
+  useEffect(() => {
+    if (error) {
+      alertContext.popAlert(error, 'error')
+    }
+  }, [error])
 
   const handleChange = (e, value) => {
     dispatch(searchUsers(searchState.text, value))
