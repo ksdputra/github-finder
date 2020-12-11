@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setText as changeText, clearSearch } from '../../actions/searchActions';
+import { popAlert } from '../../actions/alertActions';
 import PropTypes from 'prop-types';
-import AlertContext from '../../context/alert/alertContext';
 
 const Search = (props) => {
-  const alertContext = useContext(AlertContext);
 
   const dispatch = useDispatch()
 
@@ -18,7 +17,7 @@ const Search = (props) => {
   const onSubmit = e => {
     e.preventDefault();
     if (text === '') {
-      alertContext.popAlert('Please enter something', 'error')
+      dispatch(popAlert('Please enter something...', 'error'))
     } else {
       dispatch(changeText(text))
       props.initiateSearch(text)

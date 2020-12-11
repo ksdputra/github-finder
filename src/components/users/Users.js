@@ -1,10 +1,10 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchUsers } from '../../actions/searchActions';
+import { popAlert } from '../../actions/alertActions';
 import UserItem from './UserItem';
 import Pagination from '@material-ui/lab/Pagination';
 import Skeleton from '@material-ui/lab/Skeleton';
-import AlertContext from '../../context/alert/alertContext';
 
 const SkeletonUserItem = () => {
   return (
@@ -19,7 +19,6 @@ const SkeletonUserItem = () => {
 }
 
 function Users () {
-  const alertContext = useContext(AlertContext);
   
   const dispatch = useDispatch()
 
@@ -29,7 +28,7 @@ function Users () {
 
   useEffect(() => {
     if (error) {
-      alertContext.popAlert(error, 'error')
+      dispatch(popAlert(error, 'error'))
     }
   }, [error])
 

@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeAlert } from '../../actions/alertActions';
 import { Alert as AlertUI } from '@material-ui/lab'
-import AlertContext from '../../context/alert/alertContext';
 
 export const Alert = () => {
-  const alertContext = useContext(AlertContext);
 
-  const { alert } = alertContext;
+  const dispatch = useDispatch()
+
+  const alert = useSelector(state => state.alert)
 
   return (
     alert !== null && (
-      <AlertUI severity={alert.type} onClose={alertContext.removeAlert}>{alert.msg}</AlertUI>
+      <AlertUI severity={alert.type} onClose={() => dispatch(removeAlert())}>{alert.msg}</AlertUI>
     )
   );
 };

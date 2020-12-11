@@ -3,13 +3,15 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userListReducer, repoListReducer, searchReducer } from './reducers/searchReducers'
 import { userDetailReducer, userReposReducer } from './reducers/userReducers'
+import { alertReducer } from './reducers/alertReducers'
 
 const reducer = combineReducers({
   userList: userListReducer,
   repoList: repoListReducer,
   search: searchReducer,
   userDetail: userDetailReducer,
-  userRepos: userReposReducer
+  userRepos: userReposReducer,
+  alert: alertReducer
 })
 
 const initialState = {}
